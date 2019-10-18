@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import DeleteBtn from "../DeleteBtn/DeleteBtn";
 import firebase from "firebase";
-import {setSurveys} from "../../actions/surveys/setSurveys"
+import { setSurveys } from "../../actions/surveys/setSurveys";
 const db = firebase.firestore();
 
 function mapStateToProps(state) {
@@ -11,21 +11,21 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch){
-  return{
-    setSurveys: survey =>{
-      dispatch(setSurveys(survey))
+function mapDispatchToProps(dispatch) {
+  return {
+    setSurveys: survey => {
+      dispatch(setSurveys(survey));
     }
-  }
+  };
 }
 
 class Box extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
+    this.state = {
+      surveys: this.props.surveys.surveys
+    };
   }
-
-
 
   render() {
     const { surveys } = this.props;
@@ -49,4 +49,7 @@ class Box extends Component {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Box);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Box);

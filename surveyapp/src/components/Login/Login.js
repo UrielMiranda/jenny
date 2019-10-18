@@ -48,15 +48,16 @@ class Login extends Component {
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user });
-      const { displayName, photoURL, email } = user;
-      const usrObj = {
-        displayName: displayName,
-        photoURL: photoURL,
-        email: email
-      };
-      this.props.setUser(usrObj);
       if (user) {
+        const { displayName, photoURL, email } = user;
+        const usrObj = {
+          displayName: displayName,
+          photoURL: photoURL,
+          email: email
+        };
+        this.props.setUser(usrObj);
         this.props.history.push("/dashboard");
+
       }
     });
   }
@@ -74,11 +75,6 @@ class Login extends Component {
     }
     return (
       <div>
-        <h1>My App</h1>
-        <p>
-          Welcome {firebase.auth().currentUser.displayName}! You are now
-          signed-in!
-        </p>
         <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
       </div>
     );

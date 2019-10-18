@@ -65,12 +65,10 @@ const Dashboard = props => {
 
   const handleClose = event => {
     setAnchorEl(null);
+    firebase.auth().signOut();
+    props.history.push("/login");
   };
 
-  const logOut = () => {
-    firebase.auth().signOut();
-    props.history.push("/");
-  };
 
   return (
     <div>
