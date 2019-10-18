@@ -11,9 +11,10 @@ import {
 } from "@material-ui/core";
 import { connect } from "react-redux";
 import Save from "../Save/Save";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import { setSurveys } from "../../actions/surveys/setSurveys";
+import Surveys from "../Surveys/Surveys";
 const db = firebase.firestore();
 
 const mapStateToProps = state => {
@@ -45,7 +46,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   container: {
-    height: "100vh"
+    height: "100vh",
+    display: "flex",
+    margin: 10
   },
   avatar: {
     margin: 10,
@@ -55,9 +58,8 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = props => {
   const { photoURL, displayName } = props.user.user;
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
-
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -68,7 +70,6 @@ const Dashboard = props => {
     firebase.auth().signOut();
     props.history.push("/login");
   };
-
 
   return (
     <div>
@@ -95,14 +96,14 @@ const Dashboard = props => {
         </AppBar>
       </div>
       <Container fixed className={classes.container}>
-        <div>
-          <Form />
-          <Box />
-        </div>
+        <Surveys />
+        {/*<Form />*/}
+        {/*<Box />*/}
       </Container>
     </div>
   );
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

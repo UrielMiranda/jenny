@@ -23,28 +23,21 @@ class Box extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      surveys: this.props.surveys.surveys
+      surveys: this.props.surveys
     };
   }
 
   render() {
-    const { surveys } = this.props;
-    if (surveys && surveys.length) {
+    const { surveys } = this.state.surveys;
+    console.log(surveys);
+    if (surveys.length) {
+      return <div>No items</div>
+    } else {
       return (
         <div>
-          {surveys.data.map((item, index) => {
-            return (
-              <span key={index}>
-                <p>
-                  {item.question} <DeleteBtn id={item.id} />
-                </p>
-              </span>
-            );
-          })}
+
         </div>
       );
-    } else {
-      return <div>No items</div>;
     }
   }
 }

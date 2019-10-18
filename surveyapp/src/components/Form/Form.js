@@ -31,20 +31,6 @@ class Form extends Component {
     this.onChange = this.onChange.bind(this);
     this.add = this.add.bind(this);
   }
-  componentDidMount() {
-    db.collection("surveys")
-      .get()
-      .then(querySnapshot => {
-        let documents = [];
-        querySnapshot.forEach(doc => {
-          documents = [...documents, { id: doc.id, data: doc.data() }];
-        });
-        this.props.setSurveys({ surveys: documents });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
 
   onChange(data) {
     this.setState({ currentValue: data.target.value });
