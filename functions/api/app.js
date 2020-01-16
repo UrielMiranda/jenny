@@ -4,16 +4,17 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const admin = require("firebase-admin");
 const config = require("../config/config");
-const intents = require("../dialogFlow/dialogFlow");
+const intents = require("../handleDialog/handleFlow");
 
 admin.initializeApp(config);
-const db = admin.firestore();
 
 app.use(cors({ origin: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post("/surveys", (req, res) => {
+  const db = admin.firestore();
+
   const data = req.body;
   db.collection("surveys")
     .add(data)
@@ -23,6 +24,8 @@ app.post("/surveys", (req, res) => {
 });
 
 app.put("/current", (req, res) => {
+  const db = admin.firestore();
+
   const { surveyID } = req.body;
   db.collection("currentSurvey")
     .get()
